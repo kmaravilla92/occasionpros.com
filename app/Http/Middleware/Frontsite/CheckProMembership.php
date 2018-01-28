@@ -22,6 +22,9 @@ class CheckProMembership
             $laravelUser = \App\User::with('userMembership')->where('id', $currentUser->id)->first();
             if($laravelUser){
                 $userMembership = $laravelUser->userMembership;
+                if($userMembership == 'pay_per_bid'){
+                    return $next($request);
+                }
                 if(isset($userMembership) && $userMembership->is_expired){
                     \Session::flash('toastr', [
                         'error' => sprintf(

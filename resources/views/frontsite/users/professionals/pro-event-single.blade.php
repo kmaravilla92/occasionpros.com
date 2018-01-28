@@ -42,13 +42,25 @@
 				<a href="mailto:{{$owner['email']}}" class="trans-btn btn-b-blue f-left"> <i class="fa fa-envelope" aria-hidden="true"></i> <span>({{$owner['first_name']}} {{$owner['last_name']}})</span> {{$owner['email']}}</a>
 				<!-- <a href="#" class="trans-btn btn-green f-right"> BID</a> -->
 				@if(0 === count($bids))
-					<a href="#open-event-bid-{{$event['id']}}" class="trans-btn btn-green f-right popup-with-zoom-anim">BID</a>
-					@include(
-						'frontsite.partials.popups.event-bid',
-						[
-							'event' => $event
-						]
-					)
+					@if(isset($maxBidsReached) && $maxBidsReached)
+                    <p>
+                        @if(isset($userMembership) && strtolower($userMembership->title) == 'pay per bid')
+                            <span style="color:#a93f30;max-width:300px;display:inline-block;"><i class="fa fa-exclamation" aria-hidden="true" style="color:#a93f30;"></i>You are on a Pay per bid membership. Buy bids now for only $7.00/bid.</span>
+                        @else
+                            <span style="color:#a93f30;"><i class="fa fa-exclamation" aria-hidden="true" style="color:#a93f30;"></i>You reached your maximum limit of bids.</span>
+                        @endif
+                        <br><br>
+                        <a href="{{route('frontsite.professionals.events.bids.buy')}}" class="trans-btn btn-green">BUY BIDS</a>
+                    </p>
+                    @else
+                        <a href="#open-event-bid-{{$event['id']}}" class="trans-btn btn-green popup-with-zoom-anim f-right">BID</a>
+                        @include(
+                            'frontsite.partials.popups.event-bid',
+                            [
+                                'event' => $event
+                            ]
+                        )
+                    @endif
 				@endif
 			</div>
 			<div class="bid-listing">

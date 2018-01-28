@@ -111,6 +111,34 @@ return [
 					'amount' => 299.95
 				]
 			]
+		],
+		'pay_per_bid' => [
+			'title' => 'Pay per bid',
+			'max_bid' => 1,
+			'max_bid_remaining' => 0,
+			'max_categories' => 7,
+			'max_categories_remaining' => 7,
+			'max_travel_distance' => 100, // MILES
+			'max_audio' => 3,
+			'max_audio_remaining' => 3,
+			'max_video' => 3,
+			'max_video_remaining' => 3,
+			'max_photos' => 25,
+			'max_photos_remaining' => 25,
+			'prices' => [
+				'monthly' => [
+					'amount' => 0
+				],
+				'quarterly' => [
+					'amount' => 0
+				],
+				'half_year' => [
+					'amount' => 0
+				],
+				'none' => [
+					'amount' => 0
+				]
+			]
 		]
 	]
 ];

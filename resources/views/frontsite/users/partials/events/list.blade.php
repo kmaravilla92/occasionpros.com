@@ -49,7 +49,11 @@
                                 @if(0 === count($event['bids']))
                                     @if(isset($maxBidsReached) && $maxBidsReached)
                                     <p>
-                                        <span style="color:#a93f30;"><i class="fa fa-exclamation" aria-hidden="true" style="color:#a93f30;"></i>You reached your maximum limit of bids.</span>
+                                        @if(isset($userMembership) && strtolower($userMembership->title) == 'pay per bid')
+                                            <span style="color:#a93f30;max-width:300px;display:inline-block;"><i class="fa fa-exclamation" aria-hidden="true" style="color:#a93f30;"></i>You are on a Pay per bid membership. Buy bids now for only $7.00/bid.</span>
+                                        @else
+                                            <span style="color:#a93f30;"><i class="fa fa-exclamation" aria-hidden="true" style="color:#a93f30;"></i>You reached your maximum limit of bids.</span>
+                                        @endif
                                         <br><br>
                                         <a href="{{route('frontsite.professionals.events.bids.buy')}}" class="trans-btn btn-green">BUY BIDS</a>
                                     </p>

@@ -52,6 +52,7 @@
 						<input type="hidden" name="{{$key}}" value="{{$value}}">
 					@endforeach
 				@endif
+				
 				<ul>
 					@if(isset($userMembership) && $userMembership->status != '3')
 						<li class="clearfix">
@@ -70,6 +71,7 @@
 							<h2><span style="font-weight: normal;">Amount to Pay: &nbsp;&nbsp;</span><i>{{$amount_to_pay}}</i></h2>
 						</li>
 					@endif
+					@if(isset($package) && $package != 'pay_per_bid')
 					<li class="credit-card-fields {{ isset($package) && $package == 'free' ? 'fixed' : '' }}">
 						<ul style="margin: 0;">
 							<li class="clearfix ">
@@ -141,7 +143,9 @@
 							<div class="clearfix"></div>
 						</li>
 					@endif
-				</ul>
+					@endif
+				</ul>	
+				
 				<div class="btn">
 					<input type="submit" name="" class="trans-btn btn-yellow" data-orig-text="SEND" value="SEND">
 				</div>

@@ -55,7 +55,8 @@ class EventsController extends Controller
             compact(
                 'events',
                 'pagination',
-                'maxBidsReached'
+                'maxBidsReached',
+                'userMembership'
             )
         );
     }
@@ -94,7 +95,12 @@ class EventsController extends Controller
             // $response['redirect_to'] = route('frontsite.professionals.events.bids.buy');
             $response['redirect_to'] = null;
             // $response['timeOut'] = 2000;
-            $response['messages'][] = 'You reached your maximum limit of bids. Please buy bids now.';
+            if(strtolower($userMembership->title) == 'pay per bid'){
+                $response['messages'][] = 'You are on a Pay per bid membership. Buy bids now for only $7.00/bid.';
+            }else{
+                $response['messages'][] = 'You reached your maximum limit of bids. Please buy bids now.';
+            }
+            
             return response()->json($response);
         }
         
@@ -162,12 +168,14 @@ class EventsController extends Controller
             );
         }
         $metaTitle = '';
+        $package = 1;
         return view(
             'frontsite.common.payment-info',
             compact(
                 'parentBlade',
                 'paymentFormUrl',
-                'metaTitle'
+                'metaTitle',
+                'package'
             )
         );
     }
@@ -300,6 +308,8 @@ class EventsController extends Controller
     {
 
         $currentUser = $sentinel::getUser();
+        $user = \App\User::with('userMembership')->where('id',$currentUser->id)->first();
+        $userMembership = $user->userMembership;
 
         try { $event_id = $hashIds::decode($event_id)[0]; }catch(\Exeception $e){}
 
@@ -330,6 +340,12 @@ class EventsController extends Controller
 
         $bids = $event['bids'];
 
+        $maxBidsReached = false;
+
+        if($userMembership){
+            $maxBidsReached = $userMembership->max_bid_remaining == 0;
+        }
+
     	return view(
             'frontsite.users.professionals.pro-event-single',
             compact(
@@ -337,7 +353,9 @@ class EventsController extends Controller
                 'type',
                 'owner',
                 'bids',
-                'other_events'
+                'other_events',
+                'maxBidsReached',
+                'userMembership'
             )
         );
     }

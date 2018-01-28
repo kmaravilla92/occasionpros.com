@@ -60,44 +60,6 @@ class MembershipController extends Controller
                 $package
             )
         );
-        
-        if($request->package == 'free'){
-            // $current_user = \Sentinel::getUser();
-            // $months_to_add = config('occ_pros.membership.prices_num_rep.monthly');
-            // $created_at = (new Carbon)->addMonths($months_to_add);
-            // $userMembership = UserMembershipEntity::firstOrNew([
-            //     'user_id' => $current_user->id,
-            // ]);
-
-            // if(isset($userMembership->has_availed_free) && $userMembership->has_availed_free == '1'){
-            //     Session::flash('toastr',[
-            //         'error'=>'You already availed a FREE membership.'
-            //     ]);
-            //     return redirect(
-            //         route(
-            //             'frontsite.professionals.membership'
-            //         )
-            //     );
-            // }
-
-            // $userMembership->created_at = $created_at;
-            // $userMembership->expired_at = $created_at;
-            // $userMembership->status = '1';
-            // $userMembership->has_availed_free = '1';
-            // $userMembership->options = json_encode($package_config);
-            // if(isset($request->subscribe_to_bronze) && $request->subscribe_to_bronze == 1){
-            //     $userMembership->subscribed_to_pro_basic = '1';
-            // }
-            // $userMembership->save();
-            // Session::flash('toastr',[
-            //     'success'=>'You have successfully availed a FREE membership.'
-            // ]);
-            // return redirect(
-            //     route(
-            //         'frontsite.professionals.membership'
-            //     )
-            // );
-        }
 
         $parentBlade = 'frontsite.users.professionals.pro-dashboard-main';
         $paymentFormUrl = route(
@@ -157,21 +119,21 @@ class MembershipController extends Controller
         ];
 
 
-        if($package == 'free'){
+        if(in_array($package, ['free', 'pay_per_bid'])){
             $created_at = Carbon::now();
             $expired_at = (new Carbon)->addMonths(6);
             $userMembership = UserMembershipEntity::firstOrNew([
                 'user_id' => $current_user->id,
             ]);
 
-            if(isset($userMembership->has_availed_free) && $userMembership->has_availed_free == '1'){
+            if($package == 'free' && isset($userMembership->has_availed_free) && $userMembership->has_availed_free == '1'){
                 $response['type'] = 'error';
                 $response['redirect_to'] = route('frontsite.professionals.membership');
                 $response['messages'][] = 'You already availed a FREE membership.';
                 return response()->json($response);
             }
 
-            if(isset($request->subscribe_to_bronze) && $request->subscribe_to_bronze == 1){
+            if($package == 'free' && isset($request->subscribe_to_bronze) && $request->subscribe_to_bronze == 1){
                 // $expired_at = $expired_at->addMonths(1);
                 try {
                     $createdBilling = $subscription->createBillingAgreement([
@@ -233,42 +195,26 @@ class MembershipController extends Controller
             $userMembership->status = '1';
             $userMembership->has_availed_free = '1';
             $userMembership->options = json_encode($package_config);
-            if(isset($request->subscribe_to_bronze) && $request->subscribe_to_bronze == 1){
+            if($package == 'free' && isset($request->subscribe_to_bronze) && $request->subscribe_to_bronze == 1){
                 $userMembership->subscribed_to_pro_basic = '1';
             }
             $userMembership->save();
             
             $response['success'] = true;
             $response['clear_form'] = true;
-            // $response['redirect_to'] = route('frontsite.professionals.membership');
-            $response['messages'][] = 'You have successfully availed a FREE membership.';
+            if($package == 'free'){
+                $response['messages'][] = 'You have successfully availed a FREE membership.';
+            }
+            if($package == 'pay_per_bid'){
+                $response['messages'][] = 'You have successfully availed a PAY PER BID membership.';
+            }
+            
             return response()->json($response);
         }
 
         try {
 
             if(env('PAYMENT_ENABLED', true)){
-                // $paymentResult = $paypal->payWithCreditCard([
-                //     'credit_card' => $credit_card,
-                //     'items_list' => [
-                //         [
-                //             'title' => $package_config['title'] .' Membership',
-                //             'description' => $package_config['title'] .' Membership',
-                //             'amount' => $amount_to_pay,
-                //             'qty' => 1
-                //         ]
-                //     ],
-                //     'transaction_details' => [
-                //         'description' => sprintf(
-                //             'A payment to %s from %s for the : %s',
-                //             'Occasion Pros',
-                //             $current_user->first_name.' '.$current_user->last_name,
-                //             $package_config['title'] .' Membership'
-                //         ),
-                //         'invoice_number' => uniqid()
-                //     ]
-                // ]);
-                
                 $months_to_add = config('occ_pros.membership.prices_num_rep.monthly');
                 $months_to_add_text = '( '.$months_to_add.' month'.($months_to_add > 1 ? 's' : '').' )';
                 $createdBilling = $subscription->createBillingAgreement([
@@ -305,11 +251,8 @@ class MembershipController extends Controller
                 ]);
             }
 
-            /**/
-
             $userMembership = UserMembershipEntity::firstOrNew([
-                'user_id' => $current_user->id,
-                // 'status' => '1'
+                'user_id' => $current_user->id
             ]);
 
             $package_config['duration'] = $duration;

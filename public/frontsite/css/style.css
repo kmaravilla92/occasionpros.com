@@ -1177,7 +1177,7 @@ label.error {color: #ff0000 !important;}
 
 .event-listing .col{display: inline-block; vertical-align: top; width: 100%;}
 
-.event-listing .content{max-width: 530px; padding: 20px 40px 0 20px;}
+.event-listing .content{max-width: 520px; padding: 20px 40px 0 20px;}
 
 .event-listing .content a{font-size: 18px; color:#2c5c8b; font-weight: 600; margin-bottom: 5px; display: block;}
 

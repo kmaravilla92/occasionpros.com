@@ -235,6 +235,33 @@
 								</li> -->
 							</ul>
 						</li>
+						<li>
+							<ul class="active bronze col col-inner">
+								<li class="header">
+									<div class="img-holder">
+										<img src="{{asset('/frontsite/images/member3.png')}}" alt="">
+									</div>
+									<h2>Pay per bid</h2>
+								</li>
+								<li>Bid all you want for only $7.00/bid on all events.</li>
+								<li>
+									<br><br><br><br><br><br><br><br><br><br>
+									<br><br><br><br><br><br><br><br><br><br>
+									<br><br><br><br><br><br><br><br><br><br>
+									<br><br><br><br><br><br><br><br><br><br><br>
+								</li>
+								<li>
+									<h3>$7<span>.00</span></h3>
+									<p>PER BID</p>
+									<?php if($package == 'pay per bid' && isset($membership) && ($membership->status != '3')): ?>
+										<a href="{{route('frontsite.professionals.membership.cancel', ['membership_id'=>$membership->id])}}" class="free-trial-btn cancel">CANCEL MEMBERSHIP</a>
+									<?php else:?>
+										<a href="{{route('frontsite.professionals.membership.choose',['package'=>'pay_per_bid','duration'=>'none'])}}" class="mem-btn">SELECT <span>Pro Basic</span></a>
+									<?php endif ?>
+									<br>
+								</li>
+							</ul>
+						</li>
 						<!-- <li>
 							<ul class="silver col col-inner">
 								<li class="header">
