@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Freestyle Script Regular';
+  src: url('Freestyle Script Regular.eot');
+  src: url('Freestyle Script Regular.woff2') format('woff2'),
+       url('Freestyle Script Regular.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FreestyleScript-Regular';
+  src: url('FreestyleScript-Regular.woff') format('woff'),
+       url('FreestyleScript-Regular.ttf') format('truetype'),
+       url('FreestyleScript-Regular.svg#FreestyleScript-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

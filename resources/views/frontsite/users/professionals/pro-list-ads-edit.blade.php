@@ -1,0 +1,1 @@
+@include('frontsite.users.professionals.pro-list-ads-edit', ['ad' => $ad])

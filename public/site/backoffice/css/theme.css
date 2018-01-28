@@ -1,0 +1,12 @@
+.mce-panel.mce-fullscreen {
+    z-index: 9999 !important;
+}
+
+.app-dashboard .fa:before {
+	color: #fff;
+}
+
+.app-dashboard .small-box .icon {
+	top: 0;
+	font-size: 75px;
+}

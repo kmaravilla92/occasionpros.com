@@ -1,0 +1,40 @@
+@extends('emails.frontsite.master')
+@section('top_content')
+<tr>
+    <td>
+      <table class="mid-baner-text" border="0" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt; mso-table-rspace:0pt; margin: 0 auto; border-collaps:collaps;" width="auto" align="center">
+        <tbody>
+          <tr>
+            <td height="25" style="line-height: 20px;text-align:center; font-size:16px; font-family:'Playfair Display' , 'times new roman'; font-weight:400 ;  color: #000000 ">
+              Hello {{$data['profile_information']['first_name']}} {{$data['profile_information']['last_name']}}, welcome to Occasion Pro! We're glad you joined our community!
+            </td>
+          </tr>
+          <tr>
+            <td height="34" style="line-height: 34px;text-align:center; font-size:26px; font-family:'Playfair Display' , 'times new roman'; font-weight:700 ;  color: #000000 ">
+            Verify your email address to continue
+            </td>
+          </tr>
+          <tr>
+            <td height="6"></td>
+          </tr>
+          <tr>
+            <td height="6"></td>
+          </tr>
+          <tr>
+            <td>
+              <table class="" border="0" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt; mso-table-rspace:0pt; margin: 0 auto; border-collaps:collaps;" width="auto" align="center">
+                <tbody>
+                  <tr>
+                    <td height="36" width="220" style="background: #3592f1;text-align:center; font-size:15px; font-family:'lato' , tahoma; font-weight:400 ; color: #000000; ">
+                      <a href="{{$data['confirmation_link']}}" style="display: block; text-align:center;  color:#ffffff; font-size:15px; font-family:'lato' , tahoma; font-weight:400 ;  ">VERIFY EMAIL ADDRESS</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+@endsection
