@@ -256,7 +256,12 @@
 									<?php if($package == 'pay per bid' && isset($membership) && ($membership->status != '3')): ?>
 										<a href="{{route('frontsite.professionals.membership.cancel', ['membership_id'=>$membership->id])}}" class="free-trial-btn cancel">CANCEL MEMBERSHIP</a>
 									<?php else:?>
-										<a href="{{route('frontsite.professionals.membership.choose',['package'=>'pay_per_bid','duration'=>'none'])}}" class="mem-btn">SELECT <span>Pro Basic</span></a>
+										<form action="/professionals/pay-membership?package=pay_per_bid&duration=none" method="POST" class="ajaxify">
+											{{csrf_field()}}
+											<input type="hidden" name="package" value="pay_per_bid">
+											<input type="hidden" name="duration" value="none">
+											<a href="{{route('frontsite.professionals.membership.choose',['package'=>'pay_per_bid','duration'=>'none'])}}" class="mem-btn pay_per_bid">SELECT <span>Pro Basic</span></a>
+										</form>
 									<?php endif ?>
 									<br>
 								</li>
@@ -409,14 +414,19 @@
 	<script>
 		$(function(){
 			$('a[disabled="disabled"]').on('click', function(e){
-				e.preventDefault();
+				return false;
 			});
 			
 			$('.cancel').on('click', function(e){
-				var conf = confirm('Are you sure you want to cancel your membership?');
+				var conf = confirm('Existing membership details will be reset such as number of remaining bids, allowed profile images and videos etc. Are you sure you still want to cancel your membership?');
 				if(!conf){
 					e.preventDefault();
 				}
+			});
+
+			$('.pay_per_bid').on('click', function(e){
+				$(this).parent('form').trigger('submit');
+				return false;
 			});
 		});
 	</script>

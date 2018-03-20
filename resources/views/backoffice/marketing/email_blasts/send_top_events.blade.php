@@ -1,6 +1,5 @@
 @extends('backoffice.master')
 @section('content')
-@include('backoffice.includes.errors')
 <section class="content">
   <div class="row">
     <form role="form" method="POST" action="{{ route('backoffice.marketing.send-top-events.post') }}" enctype="multipart/form-data">

@@ -5,7 +5,6 @@
 				<h3>Quick Links</h3>
 				<hr>
 				<div class="link-holder customer">
-					
 					<ul>
 						<li><a href="{{route('frontsite.home')}}">Home</a></li>
 						<li><a href="{{route('frontsite.sign-up')}}">Sign up</a></li>
@@ -20,13 +19,17 @@
 				</div>
 				<div class="link-holder op">
 					<h4>Latest Blog</h4>
+					@if(count($recent_blog_posts))
 					<ul>
-						<li><a href="#">Lorem ipsum</a></li>
-						<li><a href="#">dolor sit amet,</a></li>
-						<li><a href="#">consectetur </a></li>
-						<li><a href="#">adipisicing elit,</a></li>
-						<li><a href="#">sed do eiusmod</a></li>
+						@foreach($recent_blog_posts as $recent_blog_post)
+						<li>
+							<a href="/blog-posts/{{$recent_blog_post->slug}}">{{$recent_blog_post->title}}</a>
+						</li>
+						@endforeach
 					</ul>
+					@else
+					<p>No available posts</p>
+					@endif
 				</div>
 			</div>
 			<div class="contact top-cont">

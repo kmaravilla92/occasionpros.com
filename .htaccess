@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
+#AuthName "public_html"
+#AuthUserFile "/home/jvelasco223/.htpasswds/public_html/passwd"
+#AuthType Basic
+#require valid-user

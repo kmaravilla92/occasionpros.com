@@ -26,6 +26,7 @@
     </section>
 
     <!-- Main content -->
+    @include('backoffice.includes.messages')
     @yield('content')
     <!-- /.content -->
   </div>

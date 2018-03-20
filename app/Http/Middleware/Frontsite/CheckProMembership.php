@@ -33,10 +33,10 @@ class CheckProMembership
                             )
                     ]);
                     return $next($request);
-                }elseif(isset($userMembership) && $userMembership->status == '3'){
+                }elseif(!isset($userMembership) || (isset($userMembership) && $userMembership->status == '3')){
                     \Session::flash('toastr', [
                         'error' => sprintf(
-                                '<a href="%s">Your don&apos;t have a membership! Click here to avail one.</a>', 
+                                '<a href="%s">Your don&apos;t have a membership! Click here to register.</a>', 
                                 route('frontsite.professionals.membership')
                             )
                     ]);

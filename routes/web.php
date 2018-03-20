@@ -643,7 +643,9 @@ Route::get('paginate', function()
 
 Route::get('clear-cache', function()
 {
-    return \Cache::flush();
+    \Cache::flush();
+    \Session::flash('form.success', 'System cache cleared.');
+    return redirect()->back();
 });
 
 Route::get('test-mile-radius', function()

@@ -97,6 +97,11 @@
 				<h2>$7/Bids</h2>
 				<a href="{{route('frontsite.professionals.membership')}}" class="trans-btn btn-b-blue">Upgrade</a>
 			</div>
+			<div class="bid-holder right-holder" style="background:url('{{asset('/frontsite/images/bid-bg.jpg')}}')no-repeat;">
+				<h4>Total Remaining Bids</h4>
+				<h2>{{isset($laravelUser->userMembership) ? $laravelUser->userMembership->max_bid_remaining : 0}}</h2>
+				<a href="{{route('frontsite.professionals.events.bids.buy')}}" class="trans-btn btn-b-blue">Buy Now</a>
+			</div>
 			<div class="fund-holder right-holder" style="background:url('{{asset('/frontsite/images/funds-bg.jpg')}}')no-repeat;">
 				<h4>My Funds</h4>
 				<h2>$ {{$laravelUser->total_earnings}}</h2>

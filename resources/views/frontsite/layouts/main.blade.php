@@ -35,7 +35,7 @@
 	@include('frontsite.layouts.header')
 	@yield('content')
 </section>
-@include('frontsite.layouts.footer')
+{!! \App\Components\Frontsite\Layout\Footer::render() !!}
 @include('frontsite.partials.popups.login')
 @include('frontsite.partials.popups.forgot-password')
 @if(isset($currentUser) && config('occ_pros.firebase.enabled'))

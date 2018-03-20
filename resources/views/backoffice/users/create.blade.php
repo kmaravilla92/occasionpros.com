@@ -1,6 +1,5 @@
 @extends('backoffice.master')
 @section('content')
-@include('backoffice.includes.errors')
 <section class="content">
   <div class="row">
     <?php

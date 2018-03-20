@@ -14,6 +14,10 @@ class PaypalException extends Exception
 			return 'Unknown error. Please try again later.';
 		}
 
+		if(!isset($message['details'])){
+			return isset($message['message']) ? $message['message'] : 'Unknown error. Please try again later.';
+		}
+
 		return collect($message['details'])->map(function($details)
 			{
 				return $details->issue;

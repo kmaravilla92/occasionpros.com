@@ -113,19 +113,19 @@
             </li>
         </ul>
       </li>
-      <!-- <li class="treeview">
+      <li class="treeview">
         <a href="#">
-          <i class="fa fa-gears"></i> <span>Settings</span>
+          <i class="fa fa-gears"></i> <span>System Cache</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
           <li class="active">
-            <a href="#"><i class="fa fa-list"></i> Cache</a>
-            </li>
+            <a href="/clear-cache"><i class="fa fa-list"></i> Clear</a>
+          </li>
         </ul>
-      </li> -->
+      </li>
     </ul>
   </section>
   <!-- /.sidebar -->

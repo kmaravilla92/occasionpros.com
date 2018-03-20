@@ -206,7 +206,9 @@ class MembershipController extends Controller
                 $response['messages'][] = 'You have successfully availed a FREE membership.';
             }
             if($package == 'pay_per_bid'){
-                $response['messages'][] = 'You have successfully availed a PAY PER BID membership.';
+                $response['timeOut'] = 2000;
+                $response['redirect_to'] = route('frontsite.professionals.membership');
+                $response['messages'][] = 'You successfully subscribed in our $7/BID membership.';
             }
             
             return response()->json($response);
